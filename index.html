@@ -886,10 +886,13 @@ body.on-title #rail,body.on-title #footer{opacity:0;transition:opacity .3s}
 <section data-ch="3.8">
   <h2>Key results: what died, what was born, and same score, different delta</h2>
   <div class="figrow">
-    <img class="fig" src="figs/lindsey2024_diff.png" alt="">
-    <div class="note"><div class="key">Same score, different delta</div><p class="tl">Put two versions of a model side by side and list the features one has and the other lacks. Two updates with identical scores can differ completely inside.</p><ul class="pts"><li>Crosscoder: one dictionary reads base and fine-tune at once</li><li>Peak at shared features, tails of deleted and newborn ones</li><li>Shuttleworth 2025: LoRA and full fine-tuning tie on score, LoRA adds intruder dimensions that drive forgetting</li><li>Duan 2026: probes break after updates, predictably. Every update needs revalidation</li></ul></div>
+    <div style="flex:0 1 58%;max-width:58%">
+      <img class="fig" src="figs/lindsey2024_diff.png" alt="" style="max-width:100%">
+      <p class="cap" style="font-size:.5em;margin:.3em 0 0;color:#4C5B66;text-align:left"><b style="color:#111">How to read:</b> one bar = how many features sit at that position. Across: 0 = only in the model before the update, 0.5 = shared by both, 1 = only after. A feature is one concept the model uses (role play, refusal, step-by-step math).</p>
+    </div>
+    <div class="note"><div class="key">The few changes say what the update did</div><p class="tl">Most features are shared. The few that die or are born say exactly what the update did, including what nobody asked for. A score cannot show this.</p><ul class="pts"><li>Crosscoder (Lindsey 2024): one dictionary of features read from both models at once</li><li>Born: refusal, correcting the assistant, step-by-step math. Died: role play, which nobody meant to remove</li><li>Same score, different delta (Shuttleworth 2025): LoRA and full fine-tuning tie on score, but LoRA adds new directions that drive forgetting</li><li>Duan 2026: probes break after updates, so every update needs rechecking</li></ul></div>
   </div>
-  <div class="ref">Lindsey et al., Sparse Crosscoders for Cross-Layer Features and Model Diffing, 2024</div>
+  <div class="ref">Lindsey et al., Sparse Crosscoders for Cross-Layer Features and Model Diffing, 2024. Shuttleworth et al., 2025. Duan et al., 2026</div>
 </section>
 
 <section data-ch="3.8">
