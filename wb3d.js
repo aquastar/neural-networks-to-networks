@@ -6,14 +6,14 @@
   const section=host.closest('section');
   const canvas=host.querySelector('canvas'); const labelBox=host.querySelector('.wblabels');
   const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,preserveDrawingBuffer:true});
-  renderer.setClearColor(0xffffff,0);
+  renderer.setClearColor(0xFFFFFF,0);
   const scene=new THREE.Scene();
   const camera=new THREE.PerspectiveCamera(30,3,0.1,200);
-  scene.add(new THREE.AmbientLight(0xffffff,0.8));
-  const dl=new THREE.DirectionalLight(0xffffff,0.45); dl.position.set(3,6,10); scene.add(dl);
+  scene.add(new THREE.AmbientLight(0xFFFFFF,0.8));
+  const dl=new THREE.DirectionalLight(0xFFFFFF,0.45); dl.position.set(3,6,10); scene.add(dl);
 
   const WORDS=['The','Space','Needle','is','in'];
-  const C={ink:0x4C5B66,acc:0xF76902,attn:0x1f6f8b,mlp:0xb8442c,out:0x2e7d32};
+  const C={ink:0x5F5D50,acc:0xF76902,attn:0x007A94,mlp:0xC45200,out:0x5F5D50};
   const ROWS=5, DIM=8, CS=0.22, CSTEP=0.27, RSTEP=0.62;
   const rowY=i=>(2-i)*RSTEP;
   const groups={};
@@ -23,7 +23,7 @@
   function grid(g,kind,cols,rows,cx,cy,cstep,rstep,extra={}){
     const cells=[];
     for(let r=0;r<rows;r++) for(let c=0;c<cols;c++){
-      const m=new THREE.MeshLambertMaterial({color:0xffffff,transparent:true,opacity:1});
+      const m=new THREE.MeshLambertMaterial({color:0xFFFFFF,transparent:true,opacity:1});
       const b=new THREE.Mesh(cellGeo,m);
       b.position.set(cx+(c-(cols-1)/2)*cstep,cy+((rows-1)/2-r)*rstep,0);
       b.userData={r,c,seed:((Math.sin(r*12.9898+c*78.233+cx*3.7)*43758.5453)%1+1)%1};
@@ -34,7 +34,7 @@
   function frame(g,w,h,cx,cy,color){
     const l=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.PlaneGeometry(w,h)),new THREE.LineBasicMaterial({color,transparent:true,opacity:1}));
     l.position.set(cx,cy,-0.12); g.add(l);
-    const bg=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:0.85}));
+    const bg=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({color:0xFFFFFF,transparent:true,opacity:0.85}));
     bg.position.set(cx,cy,-0.14); g.add(bg);
   }
   function curve(pts){return new THREE.CatmullRomCurve3(pts.map(p=>new THREE.Vector3(...p)));}
@@ -48,7 +48,7 @@
   // shared whiteboard (residual stream) with three snapshots of the board
   const BX=[-8,0,8];
   const gBoard=grp('board');
-  const wb=new THREE.Mesh(new THREE.PlaneGeometry(19.4,4.0),new THREE.MeshLambertMaterial({color:0xd3e3ee,transparent:true,opacity:0.75}));
+  const wb=new THREE.Mesh(new THREE.PlaneGeometry(19.4,4.0),new THREE.MeshLambertMaterial({color:0xD7D2CB,transparent:true,opacity:0.75}));
   wb.position.set(0,0,-0.3); gBoard.add(wb);
   const gRes=grp('res');
   BX.forEach((x,k)=>grid(gRes,'res',DIM,ROWS,x,0,CSTEP,RSTEP,{stage:k}));
@@ -89,7 +89,7 @@
   const words=[['Seattle',1.0],['Paris',0.2],['Tokyo',0.12],['London',0.08]];
   words.forEach(([w,p],i)=>{
     const len=0.25+2.6*p;
-    const m=new THREE.Mesh(new THREE.BoxGeometry(len,0.3,0.12),new THREE.MeshLambertMaterial({color:i?0xb9c2c8:C.out,transparent:true,opacity:1}));
+    const m=new THREE.Mesh(new THREE.BoxGeometry(len,0.3,0.12),new THREE.MeshLambertMaterial({color:i?0xACA39A:C.out,transparent:true,opacity:1}));
     m.position.set(OX+0.9+len/2,OY-i*0.42,0); gOut.add(m);
   });
 
@@ -146,8 +146,8 @@
     if(canvas.width!==Math.round(w*dpr)||canvas.height!==Math.round(h*dpr)){ renderer.setPixelRatio(dpr); renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix(); }
     return true;
   }
-  const tmp=new THREE.Color(), white=new THREE.Color(0xffffff), ink=new THREE.Color(0x3d4a54), acc=new THREE.Color(C.acc),
-        cAttn=new THREE.Color(C.attn), cMlp=new THREE.Color(C.mlp), grey=new THREE.Color(0xeef1f3);
+  const tmp=new THREE.Color(), white=new THREE.Color(0xFFFFFF), ink=new THREE.Color(0x5F5D50), acc=new THREE.Color(C.acc),
+        cAttn=new THREE.Color(C.attn), cMlp=new THREE.Color(C.mlp), grey=new THREE.Color(0xF1EDE7);
   function tick(time){
     requestAnimationFrame(tick);
     if(!section.classList.contains('present')) return;
